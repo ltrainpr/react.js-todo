@@ -1,22 +1,21 @@
+"use strict";
+
+
 var Tasks = React.createClass({
-  getInitialState: function() {
-        return {
-            counter: 0
-        };
-    },
+  renderList: function(complete){
+    console.log(_.filter(this.props.data, function(x) { return x.complete === complete; }));
+    return <ul className="list-group"></ul>
+  },
 
-    increment: function() {
-        this.setState({ counter: this.state.counter+1 });
-    },
-
-    render: function() {
-        return <div>
-            <div>{this.state.counter}</div>
-            <button onClick={this.increment}>Increment!</button>
-        </div>;
-    }
+  render: function() {
+    return  <div className="col-md-6">
+              <h1>Todo List</h1>
+              <h2 className="spacing-bottom">Incomplete</h2>
+              {this.renderList(false)}
+            </div>;
+  }
 });
 
-$(document).ready(function(){
-  React.render(React.createElement(Tasks), document.getElementById('tasks'));
+$(document).ready(function () {
+  React.render(<Tasks data={this.props.data} />, document.getElementById('tasks'));
 })
