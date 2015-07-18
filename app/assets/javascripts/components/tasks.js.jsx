@@ -1,13 +1,5 @@
 
 "use strict";
-var TaskForm = React.createClass({
-  render: function(){
-    return  <div className="task-form">
-              <label htmlFor="task-form-input"></label>
-              <input id="task-form-input"></input>
-            </div>;
-  }
-});
 
 var Tasks = React.createClass({
   getInitialState: function(){
@@ -41,6 +33,38 @@ var Tasks = React.createClass({
                 </div>
               </div>
             </div>;
+  }
+});
+
+var TaskForm = React.createClass({
+  getInitialState: function(){
+    return {
+      task: {name: '', complete: false}
+    };
+  },
+
+  handleSubmit: function(ev){
+    ev.preventDefault();
+    var self = this;
+    console.log(this.state.task);
+    $.post("/tasks", this.state, function(data) {
+      console.log('successful post');
+      console.log(data);
+      self.setState(self.getInitialState());
+      <Tasks />
+    }).fail(function(){ console.log('failed post')});
+  },
+
+  handleChange: function(ev){
+    this.setState({task: {name: ev.target.value, complete: false}});
+  },
+
+  render: function() {
+    return  <form className="task-form" onSubmit={this.handleSubmit}>
+              <label htmlFor="task-form-input"></label>
+              <input id="task-form-input" placeholder="Enter New ToDo" value={this.state.task.name} onChange={this.handleChange} ></input>
+              <input type="submit" value="Add Todo" />
+            </form>;
   }
 });
 
