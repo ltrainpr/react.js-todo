@@ -1,5 +1,13 @@
 
 "use strict";
+var TaskForm = React.createClass({
+  render: function(){
+    return  <div className="task-form">
+              <label htmlFor="task-form-input"></label>
+              <input id="task-form-input"></input>
+            </div>;
+  }
+});
 
 var Tasks = React.createClass({
   getInitialState: function(){
@@ -19,17 +27,20 @@ var Tasks = React.createClass({
   },
 
   render: function() {
-    return  <div className="todos">
-              <div className="incomplete-todo">
-                <h1>Todo List</h1>
-                <h2 className="spacing-bottom">Incomplete</h2>
-                {this.renderList(false)}
+    return  <div className="react-todo">
+              <h1>Todo List</h1>
+              <TaskForm />
+              <div className="todos-list">
+                <div className="incomplete-todo">
+                  <h2 className="spacing-bottom">Incomplete</h2>
+                  {this.renderList(false)}
+                </div>
+                <div className="complete-todo">
+                  <h2 className="spacing-bottom">Complete</h2>
+                  {this.renderList(true)}
+                </div>
               </div>
-              <div className="complete-todo">
-                <h2 className="spacing-bottom">Complete</h2>
-                {this.renderList(true)}
-              </div>
-            </div>
+            </div>;
   }
 });
 
