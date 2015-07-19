@@ -46,12 +46,10 @@ var TaskForm = React.createClass({
   handleSubmit: function(ev){
     ev.preventDefault();
     var self = this;
-    console.log(this.state.task);
     $.post("/tasks", this.state, function(data) {
-      console.log('successful post');
-      console.log(data);
-      self.setState(self.getInitialState());
-      <Tasks />
+      self.props.data = data
+      React.render(<Tasks data={self.props.data} />, document.getElementById('tasks'));
+      return self.setState(self.getInitialState());
     }).fail(function(){ console.log('failed post')});
   },
 
